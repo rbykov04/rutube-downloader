@@ -1,3 +1,18 @@
+# Quick start
+
+````bash
+npm i
+npm index.js <url>
+````
+
+Пример
+
+
+````bash
+node index.js https://rutube.ru/video/633579977b6e562d455d9d8bd2c08fbe
+````
+
+
 # Скачивание видео с RuTube
 
 <p><a href="https://github.com/ProjectSoft-STUDIONIONS/rutube-downloader/releases/latest" target="_blank"><img src="https://img.shields.io/github/v/release/ProjectSoft-STUDIONIONS/rutube-downloader?style=for-the-badge&color=%230098FF" alt="Github Latest rutube-downloader"></a> &nbsp;<a href="https://github.com/ProjectSoft-STUDIONIONS/rutube-downloader/blob/main/LICENSE" target="_blank"><img src="https://img.shields.io/github/license/ProjectSoft-STUDIONIONS/rutube-downloader?style=for-the-badge&color=%230098FF" alt="Github LICENSE rutube-downloader"></a> &nbsp;<a href="https://github.com/ProjectSoft-STUDIONIONS/rutube-downloader/" target="_blank"><img src="https://img.shields.io/github/repo-size/ProjectSoft-STUDIONIONS/rutube-downloader?style=for-the-badge&color=%230098FF" alt="Github Repo"></a> &nbsp;<a href="https://github.com/ProjectSoft-STUDIONIONS/rutube-downloader/releases/latest/download/rutube-downloader.zip" target="_blank"><img src="https://img.shields.io/github/downloads/ProjectSoft-STUDIONIONS/rutube-downloader/total?style=for-the-badge&color=%230098FF" alt="Github Download rutube-downloader"></a></p>
