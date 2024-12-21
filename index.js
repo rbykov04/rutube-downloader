@@ -36,6 +36,45 @@ const streamPipeline = util.promisify(stream.pipeline);
 
 let m, pls, url;
 
+function bibtexFromRutubeJson(json){
+	let today =new Date (Date.now());
+	let date = today.getDate();
+	let month = today.getMonth() + 1;
+	let year = today.getFullYear();
+
+	let bibtex = {
+		title             : json.title,
+		author            : json.author.name,
+		author_url        : json.author.url,
+		organization      : "Rutube",
+		howpublished      : "\\url{" + json.video_url + "}",
+		url               : json.video_url,
+		lastvisited       : year + "-" + month + "-" + date,
+		file              : "" + __dirname + "/video/" + sanitize(json.title) + ".mp4",
+		desc              : json.description
+	};
+
+	return bibtex;
+}
+function bibtexToText (bibtex){
+    // TODO: подумать над уникальным именем и так чтобы оно совпадало с именем файла
+    let uniq_name = bibtex.author.split(" ")[0]
+                  + bibtex.lastvisited.split("-")[0]
+                  + bibtex.title.split(" ")[0];
+    var result = "@misc{" + uniq_name + ",\n" ;
+    result    += "    title        = {"+ bibtex.title + "},\n";
+    result    += "    author       = {"+ bibtex.author + "},\n";
+    result    += "    author_url   = {"+ bibtex.author_url + "},\n";
+    result    += "    organization = {"+ bibtex.organization + "},\n";
+    result    += "    howpublished = {"+ bibtex.howpublished + "},\n";
+    result    += "    url          = {"+ bibtex.url + "},\n";
+    result    += "    lastvisited  = {"+ bibtex.lastvisited + "},\n";
+    result    += "    file         = {"+ bibtex.file + "},\n";
+    result    += "    desc         = {"+ bibtex.desc + "}\n";
+    result    += "}\n";
+    return result;
+}
+
 const createDir = function(dir) {
 		return new Promise((resolve, reject) => {
 			fs.access(dir, function(err) {
@@ -130,6 +169,13 @@ const createDir = function(dir) {
 					.then((json) => {
 						// Получаем название ролика
 						const outputTitle = json.title;
+
+
+                        let bibtex = bibtexToText(bibtexFromRutubeJson (json));
+						fs.appendFile('./video/rutube.bib', "\n" + bibtex + "\n", function (err) {
+							if (err) throw err;
+						});
+                        console.log(bibtex);
 						// Получаем информацию о плейлистах
 						let video_m3u8 = json['video_balancer']['m3u8'];
 						fetch(video_m3u8)
